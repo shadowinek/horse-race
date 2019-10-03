@@ -12,8 +12,11 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
-    <span class="navbar-brand mb-0 h1">Horse Race</span>
+<nav class="navbar navbar-light bg-light">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">Horse Race</span>
+        @yield('navbar')
+    </div>
 </nav>
 
 <div class="container">
