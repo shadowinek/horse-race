@@ -8,3 +8,11 @@ Horse Racing Simulator
 - Implementation will be probably done in Lumen.
 - Open questions:
   - How to recognize/mark when the race is finished?
+
+##### 03.10.2019 11:35
+- Added base migrations and base classes
+- Working on the horse repository to randomly generate horses
+- On the horse creation I will calculate the final time and final step when the horse finish the race. This will allow me to mark the final step of the race and by the comparison, I can decide if the race is finished or not.
+- All floats will be saved as integers and divided by 10 afterwards.
+- TODO:
+  - remove not needed files from Lumen

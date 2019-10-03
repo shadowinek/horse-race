@@ -21,9 +21,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +90,8 @@ $app->singleton(
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
+$app->configure('default');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
