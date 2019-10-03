@@ -8,7 +8,7 @@ return [
 	// A horse's speed is their base speed (5 m/s) + their speed stat (in m/s)
 	'base_horse_speed' => 5,
 
-	// The last 5 race results (top 3 positions and times to complete 1500m)
+	// Up to 3 races are allowed at the same time
 	'max_concurrent_races' => 3,
 
 	// The last 5 race results (top 3 positions and times to complete 1500m)
