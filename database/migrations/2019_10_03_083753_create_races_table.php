@@ -16,9 +16,9 @@ class CreateRacesTable extends Migration
         Schema::create('races', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name');
+            $table->integer('length');
             $table->integer('current_step')->nullable(true)->default(0);
-            $table->integer('last_step');
-            $table->boolean('finished')->default(false);
+            $table->integer('last_step')->nullable(true);
             $table->timestamps();
         });
     }
