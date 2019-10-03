@@ -17,7 +17,7 @@
         <h4 class="text-primary">Races In Progress</h4>
         @foreach ($races as $race)
             <div class="card mb-3">
-                <div class="card-header font-weight-bold bg-primary text-white">{{ $race->name }} on {{$race->length}}m (step: {{ $race->current_step }})</div>
+                <div class="card-header font-weight-bold bg-primary text-white">{{ $race->name }} on {{$race->length}}m (Running for {{ date('i:s', $race->current_step * config('default.progress_step_size')) }})</div>
                 <table class="table table-striped mb-0 table-sm">
                     <thead>
                         <tr>
@@ -46,13 +46,9 @@
                             <tr>
                                 <td>{{ $position+1 }}</td>
                                 <td>{{ $horse->name }}</td>
-                                <td>{{ $distances[$position] }}m</td>
-                                {{-- @todo Make better time formating and move it to helper --}}
-                                <td>@if($distances[$position] >= $race->length) {{  date('i:s', $horse->time/100) }}.{{ $horse->time%100 }} @else - @endif</td>
+                                <td>{{ round($distances[$position]) }}m</td>
+                                <td>@if($distances[$position] >= $race->length) @horse_time_format($horse->time) @else - @endif</td>
                             </tr>
-                            @php
-                                $position++;
-                            @endphp
                         @endforeach
                     </tbody>
                 </table>
@@ -68,7 +64,7 @@
                 <li class="list-group-item"><span class="font-weight-bold">Strength: </span>{{ $fastestHorse->strength / 10 }}</li>
                 <li class="list-group-item"><span class="font-weight-bold">Endurance: </span>{{ $fastestHorse->endurance / 10 }}</li>
                 <li class="list-group-item"><span class="font-weight-bold">Race: </span>{{ $fastestHorse->race->name }}</li>
-                <li class="list-group-item"><span class="font-weight-bold">Race time: </span>{{ date('i:s', $fastestHorse->time/100) }}.{{ $fastestHorse->time%100 }}</li>
+                <li class="list-group-item"><span class="font-weight-bold">Race time: </span>@horse_time_format($fastestHorse->time)</li>
             </ul>
         </div>
     </div>
@@ -93,7 +89,7 @@
                         <tr>
                             <td>{{ $position+1 }}</td>
                             <td>{{ $horse->name }}</td>
-                            <td>{{  date('i:s', $horse->time/100) }}.{{ $horse->time%100 }}</td>
+                            <td>@horse_time_format($horse->time)</td>
                         </tr>
                     @endforeach
                     </tbody>

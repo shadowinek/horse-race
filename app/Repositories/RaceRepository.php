@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Race;
 use Faker\Provider\DateTime;
 use Faker\Provider\Lorem;
+use Illuminate\Database\Eloquent\Collection;
 
 class RaceRepository {
 
@@ -29,26 +30,42 @@ class RaceRepository {
 		return ucfirst(Lorem::word()) . ' ' . DateTime::year();
 	}
 
-	public function getActiveRaces() {
+	/**
+	 * @return Collection
+	 */
+	public function getActiveRaces(): Collection {
 		/** @noinspection PhpUndefinedMethodInspection */
 		return Race::whereRaw('current_step < last_step')
 			->orderBy('created_at', 'DESC')
 			->get();
 	}
 
-	public function countActiveRaces() {
+	/**
+	 * @return int
+	 */
+	public function countActiveRaces(): int {
 		/** @noinspection PhpUndefinedMethodInspection */
 		return Race::whereRaw('current_step < last_step')
 			->count();
 	}
 
-	public function progressRaces() {
+
+	/**
+	 * @return bool
+	 */
+	public function progressRaces(): bool {
 		/** @noinspection PhpUndefinedMethodInspection */
 		return Race::whereRaw('current_step < last_step')
 			->increment('current_step', 1);
 	}
 
-	public function getLatestFinishedRaces($limit) {
+
+	/**
+	 * @param int $limit
+	 *
+	 * @return Collection
+	 */
+	public function getLatestFinishedRaces(int $limit): Collection {
 		/** @noinspection PhpUndefinedMethodInspection */
 		return Race::whereRaw('current_step >= last_step')
 			->orderBy('updated_at', 'DESC')

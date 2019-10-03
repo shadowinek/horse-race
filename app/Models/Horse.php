@@ -32,7 +32,7 @@ class Horse extends Model {
 	/**
 	 * A horse's speed is their base speed (5 m/s) + their speed stat (in m/s)
 	 *
-	 * @return int
+	 * @return float
 	 */
 	private function calculateFullSpeed(): float {
 		return ($this->attributes['speed'] / 10) + config('default.base_horse_speed');
@@ -41,7 +41,7 @@ class Horse extends Model {
 	/**
 	 * A jockey slows the horse down by 5 m/s, but this effect is reduced by the horse's strength * 8 as a percentage
 	 *
-	 * @return int
+	 * @return float
 	 */
 	private function calculateSlowdownSpeed(): float {
 
@@ -54,7 +54,7 @@ class Horse extends Model {
 	/**
 	 * Endurance represents how many hundreds of meters they can run at their best speed, before the weight of the jockey slows them down
 	 *
-	 * @return int
+	 * @return float
 	 */
 	private function calculateFullSpeedDistance(): float {
 		return $this->attributes['endurance'] * 10;
@@ -78,13 +78,21 @@ class Horse extends Model {
 
 		$time = $this->calculateFullSpeedTime() + $remainingTime;
 
-		return round($time, 2);
+		return $time;
+	}
+
+	/**
+	 * @param int $distance
+	 *
+	 * @return int
+	 */
+	public function calculateFinalStep(int $distance): int {
+		return ceil($this->calculateFinalTime($distance) / config('default.progress_step_size'));
 	}
 
 
 	/**
 	 * @param int $step
-	 * @param int $raceDistance
 	 *
 	 * @return float
 	 */
@@ -104,6 +112,6 @@ class Horse extends Model {
 			return $this->race->length;
 		}
 
-		return round($distance, 2);
+		return $distance;
 	}
 }

@@ -9,6 +9,11 @@ use Faker\Provider\en_US\Person;
 
 class HorseRepository {
 
+	/**
+	 * @param Race $race
+	 *
+	 * @return Horse
+	 */
 	private function generateRandomHorse(Race $race): Horse {
 		$horse = new Horse();
 
@@ -18,7 +23,7 @@ class HorseRepository {
 		$horse->strength = $this->getRandomStat();
 		$horse->endurance = $this->getRandomStat();
 		$horse->time = round($horse->calculateFinalTime($race->length), 2) * 100;
-		$horse->step = ceil(($horse->time / 100) / config('default.progress_step_size'));
+		$horse->step = $horse->calculateFinalStep($race->length);
 
 		$horse->save();
 
@@ -52,6 +57,10 @@ class HorseRepository {
 		}
 	}
 
+
+	/**
+	 * @return Horse
+	 */
 	public function getFastestHorse(): Horse {
 		return Horse::select('horses.*')
 			->leftJoin('races', 'races.id', '=', 'horses.race_id')

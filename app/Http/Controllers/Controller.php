@@ -24,6 +24,7 @@ class Controller extends BaseController
 
 	public function index() {
 		$races = $this->raceRepository->getActiveRaces();
+
 		$lastRaces = $this->raceRepository->getLatestFinishedRaces(config('default.last_results_races'));
 		$fastestHorse = $this->horseRepository->getFastestHorse();
 
@@ -32,14 +33,6 @@ class Controller extends BaseController
 			'lastRaces' => $lastRaces,
 			'fastestHorse' => $fastestHorse,
 		]);
-	}
-
-	public function showRace(int $id) {
-
-	}
-
-	public function showHorse(int $id) {
-
 	}
 
 	public function progressRaces() {
