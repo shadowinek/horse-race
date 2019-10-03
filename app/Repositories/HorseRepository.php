@@ -59,9 +59,9 @@ class HorseRepository {
 
 
 	/**
-	 * @return Horse
+	 * @return Horse|null
 	 */
-	public function getFastestHorse(): Horse {
+	public function getFastestHorse(): ?Horse {
 		return Horse::select('horses.*')
 			->leftJoin('races', 'races.id', '=', 'horses.race_id')
 			->whereRaw('races.current_step >= races.last_step')

@@ -57,16 +57,18 @@
     </div>
     <div class="col-4">
         <h4 class="text-success">Fastest Horse Ever</h4>
-        <div class="card">
-            <div class="card-header font-weight-bold text-white bg-success">{{ $fastestHorse->name }}</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><span class="font-weight-bold">Speed: </span>{{ $fastestHorse->speed / 10 }}</li>
-                <li class="list-group-item"><span class="font-weight-bold">Strength: </span>{{ $fastestHorse->strength / 10 }}</li>
-                <li class="list-group-item"><span class="font-weight-bold">Endurance: </span>{{ $fastestHorse->endurance / 10 }}</li>
-                <li class="list-group-item"><span class="font-weight-bold">Race: </span>{{ $fastestHorse->race->name }}</li>
-                <li class="list-group-item"><span class="font-weight-bold">Race time: </span>@horse_time_format($fastestHorse->time)</li>
-            </ul>
-        </div>
+        @if($fastestHorse)
+            <div class="card">
+                <div class="card-header font-weight-bold text-white bg-success">{{ $fastestHorse->name }}</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><span class="font-weight-bold">Speed: </span>{{ $fastestHorse->speed / 10 }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Strength: </span>{{ $fastestHorse->strength / 10 }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Endurance: </span>{{ $fastestHorse->endurance / 10 }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Race: </span>{{ $fastestHorse->race->name }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Race time: </span>@horse_time_format($fastestHorse->time)</li>
+                </ul>
+            </div>
+        @endif
     </div>
 </div>
 
